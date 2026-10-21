@@ -17,6 +17,9 @@ pkgs=(
 
     # Aurora Store integration in Armada Store for Lepton.
     /packages/armada-aurora/*.rpm
+
+    # Remote Play: valid colorspace for streaming_client's hardware-decoded frames
+    /packages/steam-stream-colorspace/*.rpm
 )
 
 dnf5 -y install --setopt=install_weak_deps=False "${pkgs[@]}"

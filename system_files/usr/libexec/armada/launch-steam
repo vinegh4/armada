@@ -34,6 +34,12 @@ export FUSERMOUNT_PROG=/run/host/usr/bin/fusermount3
 export SYSTEM_PATH="${PATH}"
 export SYSTEM_LD_LIBRARY_PATH="${LD_LIBRARY_PATH-}"
 export STEAMLINK_V4L2_RESET_AFTER_LAST_BUF=1
+# Remote Play: streaming_client asks SDL for unknown-colorspace YUV textures,
+# which SDL's Vulkan renderer rejects. The shim is inert in other processes.
+stream_shim=/usr/lib64/armada/libsteam-stream-colorspace.so
+if [[ -f "${stream_shim}" ]]; then
+    export LD_PRELOAD="${stream_shim}${LD_PRELOAD:+:${LD_PRELOAD}}"
+fi
 
 # prune the Proton 11 registration earlier releases wrote; the internal-name
 # match keeps user-created tool dirs safe
